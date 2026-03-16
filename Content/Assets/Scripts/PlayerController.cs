@@ -6,7 +6,9 @@ namespace MeuJogo.Content.component
 {
     public class PlayerController : Component
     {
-        public float Speed = 200f; // pixels por segundo
+        public float Speed = 8121200f;
+        public float JumpForce = 1500f;
+
         private Rigidbody rb;
 
         public override void Update(GameTime gameTime)
@@ -17,22 +19,19 @@ namespace MeuJogo.Content.component
                 if (rb == null) return;
             }
 
-            Vector2 movement = Vector2.Zero;
             var kb = Keyboard.GetState();
 
-            if (kb.IsKeyDown(Keys.W)) movement.Y -= 1;
-            if (kb.IsKeyDown(Keys.S)) movement.Y += 1;
-            if (kb.IsKeyDown(Keys.A)) movement.X -= 1;
-            if (kb.IsKeyDown(Keys.D)) movement.X += 1;
+            float moveX = 0;
 
-            if (movement != Vector2.Zero)
+            if (kb.IsKeyDown(Keys.A)) moveX = -1;
+            if (kb.IsKeyDown(Keys.D)) moveX = 1;
+
+            rb.Velocity.X = moveX * Speed;
+
+            // pulo
+            if (kb.IsKeyDown(Keys.Space) && rb.IsGrounded)
             {
-                movement.Normalize();
-                rb.Velocity = movement * Speed;
-            }
-            else
-            {
-                rb.Velocity = Vector2.Zero;
+                rb.AddForce(new Vector2(0, -JumpForce));
             }
         }
     }

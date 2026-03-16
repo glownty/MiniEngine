@@ -2,12 +2,15 @@
 using MeuJogo.Content.component;
 using Microsoft.Xna.Framework;
 using MeuJogo.Content.Components;
+using MeuJogo.Content.Scenes;
 
 namespace MeuJogo.Content.Primitives
 {
     public class GameObject
     {
         public Transform Transform { get; set; }
+
+        public Scene Scene { get; set; }
 
         private List<Component> components = new();
 
@@ -31,7 +34,7 @@ namespace MeuJogo.Content.Primitives
                     return t;
             }
 
-            return default;
+            return null;
         }
 
         public virtual void Update(GameTime gameTime)

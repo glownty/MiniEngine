@@ -2,18 +2,19 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MeuJogo.Content.Components
+public class Component
 {
-    public class Component
-    {
-        public GameObject GameObject { get; set; }
+    public GameObject GameObject { get; set; }
 
-        public virtual void Update(GameTime gameTime)
-        {
-        }
-    
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-        }
+    public virtual void Start()
+    {
+    }
+
+    public virtual void Update(GameTime gameTime)
+    {
+    }
+
+    public virtual void Draw(SpriteBatch spriteBatch)
+    {
     }
 }

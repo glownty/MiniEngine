@@ -20,28 +20,6 @@ namespace MeuJogo.Content.Components
 
             Origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
         }
-
-        // Método para desenhar usando SpriteBatch
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, float rotation = 0f, Vector2 scale = default)
-        {
-            if (scale == default) scale = Vector2.One;
-
-            // Define os efeitos de flip
-            SpriteEffects effects = SpriteEffects.None;
-            if (FlipX) effects |= SpriteEffects.FlipHorizontally;
-            if (FlipY) effects |= SpriteEffects.FlipVertically;
-
-            spriteBatch.Draw(
-                Texture,
-                position,
-                null,  
-                Color,
-                rotation,
-                Origin,     
-                scale,
-                effects,
-                0f
-            );
-        }
+        
     }
 }

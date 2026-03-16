@@ -32,3 +32,4 @@ C:\Users\glownt\RiderProjects\ConsoleApp\MeuJogo\obj\Debug\net9.0\MeuJogo.pdb
 C:\Users\glownt\RiderProjects\ConsoleApp\MeuJogo\obj\Debug\net9.0\MeuJogo.genruntimeconfig.cache
 C:\Users\glownt\RiderProjects\ConsoleApp\MeuJogo\obj\Debug\net9.0\ref\MeuJogo.dll
 C:\Users\glownt\RiderProjects\ConsoleApp\MeuJogo\bin\Debug\net9.0\MonoGame.Extended.dll
+C:\Users\glownt\RiderProjects\ConsoleApp\MeuJogo\obj\Debug\net9.0\MeuJogo.sourcelink.json

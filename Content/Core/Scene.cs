@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using MeuJogo.Content.component;
+﻿using System.Collections.Generic;
+using MeuJogo.Content.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MeuJogo.Content.Components;
-using MeuJogo.Content.Graphics;
 using MeuJogo.Content.Primitives;
+using MeuJogo.Content.Graphics;
 using MonoGame.Extended.BitmapFonts;
 
 namespace MeuJogo.Content.Scenes
@@ -17,6 +15,9 @@ namespace MeuJogo.Content.Scenes
         protected Renderer Renderer { get; }
 
         protected List<GameObject> objects = new();
+
+        public List<GameObject> GameObjects => objects;
+
         protected BitmapFont Font { get; private set; }
 
         public Scene(GraphicsDevice graphicsDevice)
@@ -28,19 +29,22 @@ namespace MeuJogo.Content.Scenes
 
         public virtual void Load()
         {
-
             Font = BitmapFont.FromFile(GraphicsDevice, "Content/Fonts/PRO.fnt");
-
         }
 
         public GameObject AddGameObject(string spritePath = null)
         {
-            var obj = new GameObject(); 
+            var obj = new GameObject();
+
+            obj.Scene = this;
+
             if (!string.IsNullOrEmpty(spritePath))
             {
                 obj.AddComponent(new SpriteRenderer(GraphicsDevice, spritePath));
             }
+
             objects.Add(obj);
+
             return obj;
         }
 
