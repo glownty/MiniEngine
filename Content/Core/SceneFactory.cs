@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using MeuJogo.Content.Components;
 using MeuJogo.Content.Scenes;
+using MonoGame.Extended;
 
 namespace MeuJogo.Content.Core
 {
@@ -20,7 +21,7 @@ namespace MeuJogo.Content.Core
             player.Transform.Scale = new Vector2(50, 50);
 
             player.AddComponent(new Rigidbody());
-            player.AddComponent(new PlayerController { Speed = 200f });
+            player.AddComponent(new PlayerController ());
             player.AddComponent(new BoxCollider(50, 50));
             
             player.GetComponent<SpriteRenderer>().Color = Color.Blue;

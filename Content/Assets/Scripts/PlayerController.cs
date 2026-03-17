@@ -6,7 +6,7 @@ namespace MeuJogo.Content.component
 {
     public class PlayerController : Component
     {
-        public float Speed = 8121200f;
+        public float Speed = 800f;
         public float JumpForce = 1500f;
 
         private Rigidbody rb;
