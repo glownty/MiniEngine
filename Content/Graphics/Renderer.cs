@@ -23,11 +23,13 @@ namespace MeuJogo.Content.Graphics
             {
                 var sprite = obj.GetComponent<SpriteRenderer>();
                 var text = obj.GetComponent<Text>();
-                sprite.Draw(obj);
+                
+                if (obj.GetComponent<SpriteRenderer>() != null) {
+                    sprite.Draw(SpriteBatch);
+                }
 
-                if (obj.GetComponent<Text>() != null)
-                {
-                    text.Draw(obj);
+                if (obj.GetComponent<Text>() != null) {
+                    text.Draw(SpriteBatch);
                 }
             }
         }

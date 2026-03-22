@@ -55,7 +55,7 @@ namespace MeuJogo.Content
 
             sceneManager = new SceneManager(spriteBatch, GameSettings.Scale);
             SceneFactory.SetupScenes(GraphicsDevice, sceneManager);
-            sceneManager.SetActiveScene("Main");
+            sceneManager.SetFirstScene();
         }
 
         protected override void Update(GameTime gameTime)

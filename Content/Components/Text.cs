@@ -12,7 +12,6 @@ namespace MeuJogo.Content.Components
         public Color Color { get; set; } = Color.White;
 
         private const string DefaultFontPath = "Content/Fonts/PRO.fnt";
-        private GraphicsDevice device;
 
         // Construtor completo
         public Text(BitmapFont font, string value)
@@ -22,32 +21,24 @@ namespace MeuJogo.Content.Components
         }
 
         // Construtor só com string, usa fonte padrão
-        public Text(string value)
+        public Text(GraphicsDevice device, string value)
         {
             Font = BitmapFont.FromFile(device, DefaultFontPath);
             Value = value;
         }
 
-        public override void Start()
+        public void Draw(SpriteBatch SpriteBatch)
         {
-            device = GameObject.GraphicsDevice;
-            base.Start();
-        }
-
-        public void Draw(GameObject obj)
-        {
-            obj.GetSpriteBatch().DrawString(
+            SpriteBatch.DrawString(
                 Font,
                 Value,
-                obj.Transform.Position,
+                GameObject.Transform.Position,
                 Color,
-                obj.Transform.Rotation,
+                GameObject.Transform.Rotation,
                 Vector2.Zero,
-                obj.Transform.Scale,
+                GameObject.Transform.Scale,
                 SpriteEffects.None,
                 0f
-                
-                
                 );
         }
     }

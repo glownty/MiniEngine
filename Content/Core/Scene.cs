@@ -85,8 +85,7 @@ namespace MeuJogo.Content.Scenes
                 return;
 
             SpriteBatch.Begin();
-
-            // aplica escala para todos os objetos via Renderer
+            
             Renderer.Scale = Scale;
             Renderer.DrawAll(objects);
 

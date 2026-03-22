@@ -45,8 +45,5 @@ namespace MeuJogo.Content.Primitives
                 component.Update(gameTime);
             }
         }
-        
-        public SpriteBatch GetSpriteBatch() => Scene.GetSpriteBatch();
-        public GraphicsDevice GraphicsDevice => Scene.GetGraphicsDevice();
     }
 }

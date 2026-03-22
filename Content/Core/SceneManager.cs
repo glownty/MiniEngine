@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MeuJogo.Content.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -50,6 +51,15 @@ namespace MeuJogo.Content.Core
         public void Draw()
         {
             activeScene?.Draw();
+        }
+        
+        public void SetFirstScene()
+        {
+            if (scenes.Count > 0)
+            {
+                var first = scenes.Keys.First();
+                SetActiveScene(first);
+            }
         }
 
         // Retorna a cena ativa

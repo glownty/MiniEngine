@@ -40,21 +40,21 @@ namespace MeuJogo.Content.Components
                 Color,
                 rotation,
                 Origin,
-                Scale * Size, // aplica a escala do sprite diretamente
+                Scale * Size,
                 effects,
                 0f
             );
         }
 
-        public void Draw(GameObject obj)
+        public void Draw(SpriteBatch spriteBatch)
         {
             SpriteEffects effects = SpriteEffects.None;
             if (FlipX) effects |= SpriteEffects.FlipHorizontally;
             if (FlipY) effects |= SpriteEffects.FlipVertically;
 
-            obj.GetSpriteBatch().Draw(
+            spriteBatch.Draw(
                 Texture,
-                Vector2.Zero,
+                GameObject.Transform.Position,
                 null,
                 Color,
                 0f,

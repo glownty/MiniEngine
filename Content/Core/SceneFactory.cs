@@ -1,44 +1,29 @@
-﻿using MeuJogo.Content.Components;
-using Microsoft.Xna.Framework;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using Microsoft.Xna.Framework.Graphics;
 using MeuJogo.Content.Scenes;
-using System;
 
 namespace MeuJogo.Content.Core
 {
-    public static class SceneFactory
+    public class SceneFactory
     {
-        public static void SetupScenes(
-            Microsoft.Xna.Framework.Graphics.GraphicsDevice device,
-            SceneManager manager)
+        public static void SetupScenes(GraphicsDevice device, SceneManager manager)
         {
-            var mainScene = new Scene(device);
+            var sceneType = typeof(Scene);
 
-            // --- Criar X Hutao GameObjects em posições aleatórias ---
-            int X = 5; // número de Hutao objects
-            Random rand = new Random();
+            var scenes = Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(sceneType));
 
-            for (int i = 0; i < X; i++)
+            foreach (var type in scenes)
             {
-                var hutao = mainScene.AddGameObject("Content/Assets/Sprites/hutao.png");
+                var scene = (Scene)Activator.CreateInstance(type, device);
+                
+                var sceneName = type.Name.Replace("Scene", "");
 
-                // Posição aleatória dentro da tela
-                hutao.Transform.Position = new Vector2(
-                    rand.Next(50, 1366), // assume baseWidth ~1280
-                    rand.Next(50, 768)   // assume baseHeight ~720
-                );
-
-                // Escala pequena
-                hutao.Transform.Scale = new Vector2(.25f, .25f);
-
-                // Cor aleatória
-                hutao.GetComponent<SpriteRenderer>().Color = new Color(
-                    (float)rand.NextDouble(),
-                    (float)rand.NextDouble(),
-                    (float)rand.NextDouble()
-                );
+                manager.AddScene(sceneName, scene);
             }
-
-            manager.AddScene("Main", mainScene);
         }
     }
 }
