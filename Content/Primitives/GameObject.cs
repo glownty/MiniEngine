@@ -3,6 +3,7 @@ using MeuJogo.Content.component;
 using Microsoft.Xna.Framework;
 using MeuJogo.Content.Components;
 using MeuJogo.Content.Scenes;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MeuJogo.Content.Primitives
 {
@@ -12,7 +13,7 @@ namespace MeuJogo.Content.Primitives
 
         public Scene Scene { get; set; }
 
-        private List<Component> components = new();
+        protected List<Component> components = new();
 
         public GameObject()
         {
@@ -44,5 +45,8 @@ namespace MeuJogo.Content.Primitives
                 component.Update(gameTime);
             }
         }
+        
+        public SpriteBatch GetSpriteBatch() => Scene.GetSpriteBatch();
+        public GraphicsDevice GraphicsDevice => Scene.GetGraphicsDevice();
     }
 }

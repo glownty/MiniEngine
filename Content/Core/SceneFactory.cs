@@ -1,8 +1,7 @@
-﻿using MeuJogo.Content.component;
+﻿using MeuJogo.Content.Components;
 using Microsoft.Xna.Framework;
-using MeuJogo.Content.Components;
 using MeuJogo.Content.Scenes;
-using MonoGame.Extended;
+using System;
 
 namespace MeuJogo.Content.Core
 {
@@ -12,41 +11,32 @@ namespace MeuJogo.Content.Core
             Microsoft.Xna.Framework.Graphics.GraphicsDevice device,
             SceneManager manager)
         {
-
             var mainScene = new Scene(device);
 
-            // PLAYER
-            var player = mainScene.AddGameObject("Content/Assets/Sprites/Square.png");
-            player.Transform.Position = new Vector2(400, 200);
-            player.Transform.Scale = new Vector2(50, 50);
+            // --- Criar X Hutao GameObjects em posições aleatórias ---
+            int X = 5; // número de Hutao objects
+            Random rand = new Random();
 
-            player.AddComponent(new Rigidbody());
-            player.AddComponent(new PlayerController ());
-            player.AddComponent(new BoxCollider(50, 50));
-            
-            player.GetComponent<SpriteRenderer>().Color = Color.Blue;
+            for (int i = 0; i < X; i++)
+            {
+                var hutao = mainScene.AddGameObject("Content/Assets/Sprites/hutao.png");
 
+                // Posição aleatória dentro da tela
+                hutao.Transform.Position = new Vector2(
+                    rand.Next(50, 1366), // assume baseWidth ~1280
+                    rand.Next(50, 768)   // assume baseHeight ~720
+                );
 
-            // CHÃO
-            var ground = mainScene.AddGameObject("Content/Assets/Sprites/Square.png");
-            ground.Transform.Position = new Vector2(400, 500);
-            ground.Transform.Scale = new Vector2(800, 50);
-            ground.AddComponent(new BoxCollider(800, 50));
+                // Escala pequena
+                hutao.Transform.Scale = new Vector2(.25f, .25f);
 
-
-            // PAREDE ESQUERDA
-            var wall = mainScene.AddGameObject("Content/Assets/Sprites/Square.png");
-            wall.Transform.Position = new Vector2(0, 300);
-            wall.Transform.Scale = new Vector2(50, 600);
-            wall.AddComponent(new BoxCollider(50, 600));
-
-
-            // OBSTÁCULO PARA PULAR
-            var obstacle = mainScene.AddGameObject("Content/Assets/Sprites/Square.png");
-            obstacle.Transform.Position = new Vector2(500, 450);
-            obstacle.Transform.Scale = new Vector2(120, 50);
-            obstacle.AddComponent(new BoxCollider(120, 50));
-
+                // Cor aleatória
+                hutao.GetComponent<SpriteRenderer>().Color = new Color(
+                    (float)rand.NextDouble(),
+                    (float)rand.NextDouble(),
+                    (float)rand.NextDouble()
+                );
+            }
 
             manager.AddScene("Main", mainScene);
         }

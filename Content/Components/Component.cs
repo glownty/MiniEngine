@@ -13,8 +13,4 @@ public class Component
     public virtual void Update(GameTime gameTime)
     {
     }
-
-    public virtual void Draw(SpriteBatch spriteBatch)
-    {
-    }
 }

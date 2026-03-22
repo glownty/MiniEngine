@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MeuJogo.Content.Primitives;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MeuJogo.Content.Components
@@ -14,12 +15,54 @@ namespace MeuJogo.Content.Components
         public bool FlipX { get; set; } = false;
         public bool FlipY { get; set; } = false;
 
+        // Escala local do sprite
+        public Vector2 Scale { get; set; } = Vector2.One;
+        public float Size { get; set; } = 1f;
+
         public SpriteRenderer(GraphicsDevice device, string texturePath)
         {
             Texture = Texture2D.FromFile(device, texturePath);
 
             Origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
         }
-        
+
+        // Método helper para desenhar este sprite
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, float rotation = 0f)
+        {
+            SpriteEffects effects = SpriteEffects.None;
+            if (FlipX) effects |= SpriteEffects.FlipHorizontally;
+            if (FlipY) effects |= SpriteEffects.FlipVertically;
+
+            spriteBatch.Draw(
+                Texture,
+                position,
+                null,
+                Color,
+                rotation,
+                Origin,
+                Scale * Size, // aplica a escala do sprite diretamente
+                effects,
+                0f
+            );
+        }
+
+        public void Draw(GameObject obj)
+        {
+            SpriteEffects effects = SpriteEffects.None;
+            if (FlipX) effects |= SpriteEffects.FlipHorizontally;
+            if (FlipY) effects |= SpriteEffects.FlipVertically;
+
+            obj.GetSpriteBatch().Draw(
+                Texture,
+                Vector2.Zero,
+                null,
+                Color,
+                0f,
+                Origin,
+                Scale * Size,
+                effects,
+                0f
+            );
+        }
     }
 }

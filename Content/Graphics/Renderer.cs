@@ -10,6 +10,7 @@ namespace MeuJogo.Content.Graphics
     public class Renderer
     {
         public SpriteBatch SpriteBatch { get; }
+        public Vector2 Scale { get; set; } = Vector2.One; 
 
         public Renderer(GraphicsDevice device, SpriteBatch spriteBatch)
         {
@@ -21,40 +22,12 @@ namespace MeuJogo.Content.Graphics
             foreach (var obj in objects)
             {
                 var sprite = obj.GetComponent<SpriteRenderer>();
-
-                if (sprite != null)
-                {
-                    SpriteEffects effects = SpriteEffects.None;
-
-                    if (sprite.FlipX)
-                        effects |= SpriteEffects.FlipHorizontally;
-
-                    if (sprite.FlipY)
-                        effects |= SpriteEffects.FlipVertically;
-
-                    SpriteBatch.Draw(
-                        sprite.Texture,
-                        obj.Transform.Position,
-                        null,
-                        sprite.Color,
-                        obj.Transform.Rotation,
-                        obj.GetComponent<SpriteRenderer>().Origin,
-                        obj.Transform.Scale,
-                        effects,
-                        0f
-                    );
-                }
-                
                 var text = obj.GetComponent<Text>();
+                sprite.Draw(obj);
 
-                if (text != null)
+                if (obj.GetComponent<Text>() != null)
                 {
-                    SpriteBatch.DrawString(
-                        text.Font,
-                        text.Value,
-                        obj.Transform.Position,
-                        text.Color
-                    );
+                    text.Draw(obj);
                 }
             }
         }
