@@ -22,6 +22,9 @@ namespace MeuJogo.Content.Scenes
         // Escala aplicada na cena
         protected Vector2 Scale { get; private set; } = Vector2.One;
 
+        // Câmera ativa da cena
+        protected Camera ActiveCamera { get; private set; }
+
         public Scene(GraphicsDevice graphicsDevice)
         {
             GraphicsDevice = graphicsDevice;
@@ -34,27 +37,18 @@ namespace MeuJogo.Content.Scenes
             Renderer = new Renderer(GraphicsDevice, SpriteBatch);
         }
 
-        public SpriteBatch GetSpriteBatch()
-        {
-            return SpriteBatch;
-        }
-
-        public GraphicsDevice GetGraphicsDevice()
-        {
-            return GraphicsDevice;
-        }
+        public SpriteBatch GetSpriteBatch() => SpriteBatch;
+        public GraphicsDevice GetGraphicsDevice() => GraphicsDevice;
 
         // Define a escala da cena
-        public void SetScale(Vector2 scale)
-        {
-            Scale = scale;
-        }
+        public void SetScale(Vector2 scale) => Scale = scale;
 
         public virtual void Load()
         {
             Font = BitmapFont.FromFile(GraphicsDevice, "Content/Fonts/PRO.fnt");
         }
 
+        // Adiciona GameObject normal (com sprite opcional)
         public GameObject AddGameObject(string spritePath = null)
         {
             var obj = new GameObject();
@@ -63,13 +57,28 @@ namespace MeuJogo.Content.Scenes
             if (!string.IsNullOrEmpty(spritePath))
             {
                 var renderer = new SpriteRenderer(GraphicsDevice, spritePath);
-                renderer.Scale = Scale; // aplica escala diretamente no renderer
                 obj.AddComponent(renderer);
             }
 
             objects.Add(obj);
             return obj;
         }
+
+        // Adiciona GameObject com câmera
+        public GameObject AddGameObject(Camera camera)
+        {
+            var obj = new GameObject();
+            obj.Scene = this;
+
+            obj.AddComponent(camera);
+            objects.Add(obj);
+
+            // Define câmera ativa da cena
+            ActiveCamera = camera;
+            return obj;
+        }
+        
+        public Camera GetCamera() => ActiveCamera;
 
         public virtual void Update(GameTime gameTime)
         {
@@ -83,9 +92,12 @@ namespace MeuJogo.Content.Scenes
         {
             if (SpriteBatch == null)
                 return;
-
-            SpriteBatch.Begin();
             
+            if (ActiveCamera != null)
+                SpriteBatch.Begin(transformMatrix: ActiveCamera.GetViewMatrix());
+            else
+                SpriteBatch.Begin();
+
             Renderer.Scale = Scale;
             Renderer.DrawAll(objects);
 

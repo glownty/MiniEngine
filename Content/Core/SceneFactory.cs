@@ -10,7 +10,7 @@ namespace MeuJogo.Content.Core
     {
         public static void SetupScenes(GraphicsDevice device, SceneManager manager)
         {
-            var sceneType = typeof(Scene);
+            var sceneType = typeof(Scene);  
 
             var scenes = Assembly.GetExecutingAssembly()
                 .GetTypes()

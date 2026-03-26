@@ -22,11 +22,14 @@ namespace MeuJogo.Content.component
             var kb = Keyboard.GetState();
 
             float moveX = 0;
+            float moveY = 0;
 
             if (kb.IsKeyDown(Keys.A)) moveX = -1;
             if (kb.IsKeyDown(Keys.D)) moveX = 1;
+            if (kb.IsKeyDown(Keys.W)) moveY = -1;
+            if (kb.IsKeyDown(Keys.S)) moveY = 1;
 
-            rb.Velocity.X = moveX * Speed;
+            rb.Velocity = new Vector2(moveX, moveY)  * Speed;
 
             // pulo
             if (kb.IsKeyDown(Keys.Space) && rb.IsGrounded)
